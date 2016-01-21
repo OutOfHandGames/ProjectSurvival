@@ -14,15 +14,13 @@ public class MovementMechanics : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
         inputVector = Vector2.zero;
         anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	protected virtual void Update () {
-        horizontalInput(Input.GetAxisRaw("Horizontal"));
-        verticalInput(Input.GetAxisRaw("Vertical"));
         updateRotation();
         updateMovement();
 	}
@@ -35,6 +33,11 @@ public class MovementMechanics : MonoBehaviour {
     public void verticalInput(float v)
     {
         inputVector = new Vector2(inputVector.x, v);
+    }
+
+    public Vector2 getInputvector()
+    {
+        return inputVector;
     }
 
     protected virtual void updateRotation()
