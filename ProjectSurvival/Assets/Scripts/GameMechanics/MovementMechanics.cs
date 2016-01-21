@@ -2,11 +2,13 @@
 using System.Collections;
 
 public class MovementMechanics : MonoBehaviour {
-    public bool movementOn;
-    public bool rotationOn;
+    public bool movementOn = true;
+    public bool rotationOn = true;
 
     public float movementAcceleration = 10;
     public float rotationAcceleration = 15;
+
+    Animator anim;
 
     Vector2 inputVector;
 
@@ -14,6 +16,7 @@ public class MovementMechanics : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         inputVector = Vector2.zero;
+        anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -48,7 +51,8 @@ public class MovementMechanics : MonoBehaviour {
 
     protected virtual void updateMovement()
     {
-
+        inputVector = inputVector.normalized;
+        anim.SetFloat("Speed", inputVector.magnitude);
     }
 
 }
