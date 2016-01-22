@@ -54,8 +54,9 @@ public class MovementMechanics : MonoBehaviour {
 
     protected virtual void updateMovement()
     {
+        float scale = Mathf.Max(Mathf.Abs(inputVector.x), Mathf.Abs(inputVector.y));
         inputVector = inputVector.normalized;
-        anim.SetFloat("Speed", inputVector.magnitude);
+        anim.SetFloat("Speed", inputVector.magnitude * scale);
     }
 
 }

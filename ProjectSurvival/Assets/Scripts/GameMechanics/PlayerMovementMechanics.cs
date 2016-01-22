@@ -12,8 +12,8 @@ public class PlayerMovementMechanics : MovementMechanics {
 
     protected override void Update()
     {
-        verticalInput(Input.GetAxis("Vertical"));
-        horizontalInput(Input.GetAxis("Horizontal"));
+        verticalInput(Input.GetAxisRaw("Vertical"));
+        horizontalInput(Input.GetAxisRaw("Horizontal"));
         base.Update();
     }
 
