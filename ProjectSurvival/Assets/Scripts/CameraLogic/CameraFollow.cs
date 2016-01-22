@@ -8,6 +8,7 @@ public class CameraFollow : MonoBehaviour {
     Transform playerTransform;
     Rigidbody rigid;
     Vector3 offsetVector;
+    CameraCollision cameraCollision;
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class CameraFollow : MonoBehaviour {
 
         offsetVector = transform.position - playerTransform.position;
         rigid = GetComponent<Rigidbody>();
+        cameraCollision = GetComponent<CameraCollision>();
     }
 
     void Update()
@@ -25,9 +27,25 @@ public class CameraFollow : MonoBehaviour {
 
     void updateCameraPosition()
     {
-        Vector3 vel = -transform.position + playerTransform.position + offsetVector;
+        Vector3 offset = offsetVector;
+        if (cameraCollision.getIsColliding())
+        {
+            offset = cameraCollision.getHitOffset();
+        }
+        Vector3 vel = (-transform.position + playerTransform.position + offset);
         vel *= cameraMaxSpeed;
         rigid.velocity = Vector3.MoveTowards(rigid.velocity, vel, Time.deltaTime * cameraAcceleration);
+    }
+    
+
+    public Transform getPlayerTransform()
+    {
+        return playerTransform;
+    }
+
+    public Vector3 getOffsetVector()
+    {
+        return offsetVector;
     }
 
 }
