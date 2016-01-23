@@ -3,18 +3,28 @@ using System.Collections;
 
 public class HealthMechanics : MonoBehaviour {
     public float maxHealth = 100;
+    public DeathLogic deathLogic;
 
     bool isDead;
     private float currentHealth;
 
     void Start()
     {
+        deathLogic = GetComponent<DeathLogic>();
         currentHealth = maxHealth;
     }
 
-    protected virtual void deathLogic()
+    protected virtual void initializeDeathLogic()
     {
         isDead = true;
+        if (deathLogic != null)
+        {
+            deathLogic.characterDeath();
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void decreaseHealth(float damage)
@@ -22,7 +32,7 @@ public class HealthMechanics : MonoBehaviour {
         currentHealth -= damage;
         if (currentHealth <= 0 && !isDead)
         { 
-            deathLogic();
+            initializeDeathLogic();
         }
     }
 
@@ -36,7 +46,7 @@ public class HealthMechanics : MonoBehaviour {
         this.currentHealth = health;
         if (currentHealth <= 0 && !isDead)
         {
-            deathLogic();
+            initializeDeathLogic();
         }
     }
 }

@@ -5,6 +5,7 @@ public class MeleeHitbox : MonoBehaviour {
     public float timeActive = .25f;
     public Vector3 forceDirection = new Vector3(0, 0, 1);
     public float hitForce = 25;
+    public int damage = 35;
 
     Collider hitCollider;
     bool hitActive;
@@ -44,16 +45,18 @@ public class MeleeHitbox : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        Rigidbody colRigid = collider.GetComponent<Rigidbody>();
+        HealthMechanics colHealth = collider.GetComponent<HealthMechanics>();
 
-        if (colRigid != null)
+        if (colHealth != null)
         {
+            //print("I made it here");
             Vector3 finalForce = Vector3.zero;
             finalForce += transform.forward * forceDirection.z;
             finalForce += transform.right * forceDirection.x;
             finalForce += transform.up * forceDirection.y;
 
-            colRigid.AddForce(finalForce * hitForce);
+            colHealth.GetComponent<Rigidbody>().AddForce(finalForce * hitForce);
+            colHealth.decreaseHealth(damage);
         }
     }
 }
