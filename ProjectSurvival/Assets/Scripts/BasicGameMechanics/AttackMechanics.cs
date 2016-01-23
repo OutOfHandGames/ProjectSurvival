@@ -3,10 +3,12 @@ using System.Collections;
 
 public class AttackMechanics : MonoBehaviour {
     Animator anim;
+    WeaponMechanics weaponMechanics;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        weaponMechanics = GetComponentInChildren<WeaponMechanics>();
     }
 
     void Update()
@@ -20,6 +22,7 @@ public class AttackMechanics : MonoBehaviour {
         {
             anim.ResetTrigger("Attack");
             anim.SetTrigger("Attack");
+            weaponMechanics.attack();
 
         }
     }
