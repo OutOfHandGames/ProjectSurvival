@@ -3,10 +3,8 @@ using System.Collections;
 
 public class MovementMechanics : MonoBehaviour {
     public bool movementOn = true;
-    public bool rotationOn = true;
 
     public float movementAcceleration = 10;
-    public float rotationAcceleration = 15;
 
     Animator anim;
 
@@ -21,7 +19,6 @@ public class MovementMechanics : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected virtual void Update () {
-        updateRotation();
         updateMovement();
 	}
 
@@ -38,18 +35,6 @@ public class MovementMechanics : MonoBehaviour {
     public Vector2 getInputvector()
     {
         return inputVector;
-    }
-
-    protected virtual void updateRotation()
-    {
-        if (Mathf.Abs(inputVector.x) < .02f && Mathf.Abs(inputVector.y) < .02f)
-        {
-            return;
-        }
-
-        float y = Mathf.Atan2(inputVector.x, inputVector.y) * Mathf.Rad2Deg;
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, y, 0), Time.deltaTime * rotationAcceleration);        
     }
 
     protected virtual void updateMovement()

@@ -48,4 +48,9 @@ public class CameraFollow : MonoBehaviour {
         return offsetVector;
     }
 
+    public void setOffsetVector(Vector3 vec)
+    {
+        this.offsetVector = vec;
+    }
+
 }
